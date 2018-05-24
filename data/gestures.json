@@ -1,6 +1,6 @@
 {
   "thumb": {
-    "filename": "code/twistpeukku.py",
+    "filename": "gesturecodes/twistpeukku.py",
     "thumbnail": "thumbnails/thumb.png"
   },
   "middlefinger" : {
@@ -8,31 +8,31 @@
     "thumbnail": "srggs"
   },
   "hello":{
-    "filename": "code/wavehello.py",
+    "filename": "gesturecodes/wavehello.py",
     "thumbnail": "thumbnails/hello.png"
   },
   "duck": {
-    "filename": "code/ankka.py",
+    "filename": "gesturecodes/ankka.py",
     "thumbnail": "thumbnails/duck.png"
   },
   "cat" : {
-    "filename" : "code/kissa.py",
+    "filename" : "gesturecodes/kissa.py",
     "thumbnail": "thumbnails/cat.png"
   },
   "candy": {
-    "filename": "code/karamelli.py",
+    "filename": "gesturecodes/karamelli.py",
     "thumbnail": "thumbnails/candy.png"
   },
   "ball": {
-    "filename": "code/pallo.py",
+    "filename": "gesturecodes/pallo.py",
     "thumbnail": "thumbnails/ball.png"
   },
   "house": {
-    "filename": "code/talo.py",
+    "filename": "gesturecodes/talo.py",
     "thumbnail": "thumbnails/house.png"
   },
   "skiing": {
-    "filename": "code/hiihto.py",
+    "filename": "gesturecodes/hiihto.py",
     "thumbnail": "thumbnails/skiing.png"
   }
 }
