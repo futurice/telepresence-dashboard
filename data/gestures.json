@@ -1,0 +1,38 @@
+{
+  "thumb": {
+    "filename": "code/twistpeukku.py",
+    "thumbnail": "thumbnails/thumb.png"
+  },
+  "middlefinger" : {
+    "filename": "grsgs",
+    "thumbnail": "srggs"
+  },
+  "hello":{
+    "filename": "code/wavehello.py",
+    "thumbnail": "thumbnails/hello.png"
+  },
+  "duck": {
+    "filename": "code/ankka.py",
+    "thumbnail": "thumbnails/duck.png"
+  },
+  "cat" : {
+    "filename" : "code/kissa.py",
+    "thumbnail": "thumbnails/cat.png"
+  },
+  "candy": {
+    "filename": "code/karamelli.py",
+    "thumbnail": "thumbnails/candy.png"
+  },
+  "ball": {
+    "filename": "code/pallo.py",
+    "thumbnail": "thumbnails/ball.png"
+  },
+  "house": {
+    "filename": "code/talo.py",
+    "thumbnail": "thumbnails/house.png"
+  },
+  "skiing": {
+    "filename": "code/hiihto.py",
+    "thumbnail": "thumbnails/skiing.png"
+  }
+}

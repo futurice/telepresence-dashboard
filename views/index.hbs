@@ -1,2 +1,88 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="parent-container">
+  <div class="row">
+    <div class="col">
+      <h1> Momo Telepresence</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-4">
+            <input type="checkbox" data-toggle="toggle" data-on="Flow On" data-off="Flow Off" id="tp-idle-btn">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Speech Box:<br>
+            <input type="text" name="speechbox" id="tp-speech-input" size="80">
+            <input type="submit" value="Submit" id="tp-speech-btn">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <label for="codebox">Write your code here:</label>
+            <textarea rows="20" cols="80" id="tp-code-input"></textarea>
+            <input type="submit" value="Send Code" id="tp-code-btn">
+          </div>
+        </div>
+      <!--End of first inner container-->
+      </div>
+    </div>
+    <div class="col">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-4">
+            <button type="button" id="tp-thumb" class="tp-button-action btn btn-primary btn-lg"
+            data-button-info="thumb"></button>
+
+          </div>
+          <div class="col-4">
+            <button type="button" id="tp-middlefinger" class="tp-button-action btn btn-primary btn-lg"
+            data-button-info="fuckyou"></button>
+
+          </div>
+          <div class="col-4">
+            <button type="button" id="tp-hello" class="tp-button-action btn btn-primary btn-lg"
+            data-button-info="hello"></button>
+
+          </div>
+          <div class="col-4">
+            <button type="button" id="tp-duck" class="tp-button-action btn btn-primary btn-lg"
+            data-button-info="duck"></button>
+
+          </div>
+          <div class="col-4">
+            <button type="button" id="tp-cat" class="tp-button-action btn btn-primary btn-lg"
+            data-button-info="cat"></button>
+
+          </div>
+          <div class="col-4">
+            <button type="button" id="tp-candy" class="tp-button-action btn btn-primary btn-lg"
+            data-button-info="candy"></button>
+
+          </div>
+          <div class="col-4">
+            <button type="button" id="tp-ball" class="tp-button-action btn btn-primary btn-lg"
+            data-button-info="ball"></button>
+
+          </div>
+          <div class="col-4">
+            <button type="button" id="tp-house" class="tp-button-action btn btn-primary btn-lg"
+            data-button-info="house"></button>
+
+          </div>
+          <div class="col-4">
+            <button type="button" id="tp-skiing" class="tp-button-action btn btn-primary btn-lg"
+            data-button-info="skiing"></button>
+
+      <!--End of second inner container-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--end of general container-->
+</div>
+
+<script src="/javascripts/telepresence.js"></script>
