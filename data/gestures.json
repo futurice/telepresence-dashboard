@@ -1,38 +1,56 @@
 {
-  "thumb": {
-    "filename": "gesturecodes/twistpeukku.py",
-    "thumbnail": "thumbnails/thumb.png"
-  },
-  "middlefinger" : {
-    "filename": "grsgs",
-    "thumbnail": "srggs"
-  },
-  "hello":{
-    "filename": "gesturecodes/wavehello.py",
-    "thumbnail": "thumbnails/hello.png"
-  },
-  "duck": {
-    "filename": "gesturecodes/ankka.py",
-    "thumbnail": "thumbnails/duck.png"
-  },
-  "cat" : {
-    "filename" : "gesturecodes/kissa.py",
-    "thumbnail": "thumbnails/cat.png"
-  },
-  "candy": {
-    "filename": "gesturecodes/karamelli.py",
-    "thumbnail": "thumbnails/candy.png"
-  },
-  "ball": {
-    "filename": "gesturecodes/pallo.py",
-    "thumbnail": "thumbnails/ball.png"
-  },
-  "house": {
-    "filename": "gesturecodes/talo.py",
-    "thumbnail": "thumbnails/house.png"
-  },
-  "skiing": {
-    "filename": "gesturecodes/hiihto.py",
-    "thumbnail": "thumbnails/skiing.png"
+  "scenarios": {
+    "signlanguage": {
+      "thumb": {
+        "filename": "gesturecodes/twistpeukku.py",
+        "thumbnail": "images/thumb.png"
+      },
+      "middlefinger" : {
+        "filename": "grsgs",
+        "thumbnail": "srggs"
+      },
+      "hello":{
+        "filename": "gesturecodes/wavehello.py",
+        "thumbnail": "images/hello.png"
+      },
+      "duck": {
+        "filename": "gesturecodes/ankka.py",
+        "thumbnail": "images/duck.png"
+      },
+      "cat" : {
+        "filename" : "gesturecodes/kissa.py",
+        "thumbnail": "images/cat.png"
+      },
+      "candy": {
+        "filename": "gesturecodes/karamelli.py",
+        "thumbnail": "images/candy.png"
+      },
+      "ball": {
+        "filename": "gesturecodes/pallo.py",
+        "thumbnail": "images/ball.png"
+      },
+      "house": {
+        "filename": "gesturecodes/talo.py",
+        "thumbnail": "images/house.png"
+      },
+      "skiing": {
+        "filename": "gesturecodes/hiihto.py",
+        "thumbnail": "images/skiing.png"
+      }
+    },
+    "randomthings": {
+      "pot": {
+        "filename": "gesturecodes/kattila.py",
+        "thumbnail": "images/pot.png"
+      },
+      "flour": {
+        "filename": "gesturecodes/jauho.py",
+        "thumbnail": "images/flour.png"
+      },
+      "bread": {
+        "filename": "gesturecodes/leipa.py",
+        "thumbnail": "images/bread.png"
+      }
+    }
   }
 }

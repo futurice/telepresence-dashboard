@@ -6,15 +6,18 @@ var gestures = require('../data/gestures.json');
 var fs = require('fs');
 
 /* GET home page. */
-router.post('/run/preset/:buttonClicked', function (request, response){
+router.post('/run/preset/:scenario/:buttonClicked', function (request, response){
+  let scenario = request.params.scenario;
   let buttonName = request.params.buttonClicked;
-  if (gestures.hasOwnProperty(buttonName)){
-    fs.readFile(gestures[buttonName].filename, 'utf8', function(error, data){
+  if (gestures.scenarios[scenario].hasOwnProperty(buttonName)){
+    fs.readFile(gestures.scenarios[scenario][buttonName].filename, 'utf8', function(error, data){
       if (error) throw error;
       console.log(data);
       sendOverSocket(data);
       response.json({success: true});
     });
+  } else {
+    response.json({success:false});
   }
 });
 

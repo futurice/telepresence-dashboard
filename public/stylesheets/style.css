@@ -6,50 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
-
-.tp-button-action {
-  margin-bottom: 10px;
-  position: 0 0;
-  background-size: auto 150px;
-  background-repeat: no-repeat;
+.tp-button-action img {
+  height: 100%;
+  witdh: 100px;
 }
-
 .btn-lg {
   height: 150px;
   width: 100%;
-}
-
-#tp-thumb {
-  background-image: url(/images/thumb.png);
-}
-
-#tp-middlefinger {
-  background-image: url(/images/middle-finger.png);
-}
-
-#tp-hello {
-  background-image: url(/images/hello.png);
-}
-#tp-duck {
-  background-image: url(/images/duck.png);
-}
-
-#tp-cat {
-  background-image: url(/images/cat.png);
-}
-
-#tp-candy {
-  background-image: url(/images/candy.png);
-}
-
-#tp-ball {
-  background-image: url(/images/ball.png);
-}
-
-#tp-house {
-  background-image: url(/images/house.png);
-}
-
-#tp-skiing {
-  background-image: url(/images/skiing.png);
+  margin-top: 5px;
 }
