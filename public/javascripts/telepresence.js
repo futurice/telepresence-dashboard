@@ -24,15 +24,21 @@
 		.fail(function(error){console.log(error)});
 	});
 
+//Highlighter for the text box, work on this later.
 	$(document).ready(function(){
-		$('textarea').each(function(i, block){
+		$('#tp-text-box').each(function(i, block){
 			hljs.highlightBlock(block);
 		});
 	});
 
 	function showSuccess(message) {
-		// $().fadeIn
-		// setTimeout
+		$('#tp-button-action').click(function(){
+			$('#tp-alert').fadeIn();
+			setTimeout(function(){
+				alert(3000)};
+			$('#tp-alert').fadeOut();
+		});
+
 		// $().fadeOut
 	}
 

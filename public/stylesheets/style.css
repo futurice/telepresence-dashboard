@@ -6,12 +6,34 @@ body {
 a {
   color: #00B7FF;
 }
+.tp-button-action {
+  padding: 0;
+}
 .tp-button-action img {
   height: 100%;
-  witdh: 100px;
+  width: auto;
 }
 .btn-lg {
   height: 150px;
-  width: 100%;
+  width: 150px;
   margin-top: 5px;
+}
+
+#cam-lower-layer {
+  background-color: black;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+#cam-top-layer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }

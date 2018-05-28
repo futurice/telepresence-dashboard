@@ -31,6 +31,13 @@ router.post('/run/code', function (request, response){
   response.json({success: true});
 });
 
+router.post('/run/vision', function (request, response){
+  let x = request.body.perX;
+  let y = request.body.perY;
+  //sendOverSocket('movehead("'x' + "/" + "'y'")');
+  response.json({success: true});
+});
+
 function sendOverSocket(message){
   var client = new net.Socket();
   client.connect(15000, function(){
