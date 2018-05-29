@@ -6,8 +6,8 @@
         "thumbnail": "images/thumb.png"
       },
       "middlefinger" : {
-        "filename": "grsgs",
-        "thumbnail": "srggs"
+        "filename": "gesturecodes/twistpeukku.py",
+        "thumbnail": "images/thumb.png"
       },
       "hello":{
         "filename": "gesturecodes/wavehello.py",

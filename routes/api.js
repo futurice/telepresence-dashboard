@@ -34,7 +34,9 @@ router.post('/run/code', function (request, response){
 router.post('/run/vision', function (request, response){
   let x = request.body.perX;
   let y = request.body.perY;
-  //sendOverSocket('movehead("'x' + "/" + "'y'")');
+  console.log("Received X: " + x);
+  console.log(request.body);
+  sendOverSocket('turnhead("'+x+' + "/" + "'+y+'")');
   response.json({success: true});
 });
 

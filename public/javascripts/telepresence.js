@@ -16,7 +16,7 @@
 		$.post('/api/run/speech', {speech:tp_speech},function(data){console.log(data);})
 		.fail(function(error){console.log(error)});
 	});
-	//reas text input from the code box
+	//read text input from the code box
 	$('#tp-code-btn').click(function(){
 		let tp_code = $('#tp-code-input').val();
 		console.log(tp_code);
@@ -25,27 +25,27 @@
 	});
 
 //Highlighter for the text box, work on this later.
-	$(document).ready(function(){
-		$('#tp-text-box').each(function(i, block){
-			hljs.highlightBlock(block);
-		});
-	});
+	//$(document).ready(function(){
+		//$('#tp-text-box').each(function(i, block){
+			//hljs.highlightBlock(block);
+	//	});
+	//});
 
-	function showSuccess(message) {
-		$('#tp-button-action').click(function(){
-			$('#tp-alert').fadeIn();
-			setTimeout(function(){
-				alert(3000)};
-			$('#tp-alert').fadeOut();
-		});
+	//function showSuccess(message) {
+		//$('#tp-button-action').click(function(){
+			//$('#tp-alert').fadeIn();
+			//setTimeout(function(){
+				//alert(3000)};
+			//$('#tp-alert').fadeOut();
+		//});
 
 		// $().fadeOut
-	}
+	//}
 
-	function showError(message) {
+	//function showError(message) {
 		// $().fadeIn
 		// setTimeout
 		// $().fadeOut
-	}
+	//}
 
 })(jQuery);
