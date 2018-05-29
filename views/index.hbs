@@ -29,8 +29,11 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col">
-            <div class="alert alert-success" role="alert" id="tp-alert">
-              You have pressed an action button. Please wait a moment!
+            <div class="alert alert-success" id="tp-success" role="alert">
+                A button command has been sent.
+            </div>
+            <div class="alert alert-danger" id="tp-fail" role="alert">
+                A button command has failed.
             </div>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown"
@@ -47,9 +50,9 @@
         <div class="row">
           {{#each buttons}}
                 <div class="col-4">
-                  <button type="button" id="tpbutton" class="tp-button-action btn btn-primary btn-lg fade-msg"
+                  <button type="button" class="tp-button-action btn btn-primary btn-lg"
                   data-button-info= "{{@key}}">
-                  <img src="{{thumbnail}}" class="tp-button-action-image"></img>
+                  <img src="{{thumbnail}}" id="tp-image-button" class="tp-button-action-image"></img>
                 </button>
                 </div>
           {{/each}}

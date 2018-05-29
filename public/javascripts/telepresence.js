@@ -31,21 +31,37 @@
 	//	});
 	//});
 
-	//function showSuccess(message) {
-		//$('#tp-button-action').click(function(){
-			//$('#tp-alert').fadeIn();
+	//function showSuccess() {
+	//$(document).ready(function(){
+		//$(".tp-button-action").click(function(){
+			//$(".alert-success").fadeIn();
 			//setTimeout(function(){
-				//alert(3000)};
-			//$('#tp-alert').fadeOut();
+				//$(".alert-success").fadeOut();}, 3000);
 		//});
+	//});
 
+	//function showError(){
+	//$(document).ready(function(){
+		//$(".tp-button-action").click(function(){
+			//$(".alert-danger").fadeIn();
+			//setTimeout(function(){
+				//$(".alert-danger").fadeOut();}, 3000);
+		//});
+	//});
+
+	//showSuccess();
+	//setTimeout
+	//$().fadeOut
+	//});
 		// $().fadeOut
 	//}
-
 	//function showError(message) {
+
+	//}
 		// $().fadeIn
 		// setTimeout
 		// $().fadeOut
-	//}
+
+	//showError();
 
 })(jQuery);

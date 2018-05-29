@@ -1,7 +1,7 @@
 (function ($){
   $('#cam-top-layer').click(function(event){
-    let screenWidth = window.screen.width;
-    let screenHeight = window.screen.height;
+    let screenWidth = $(document).width();
+    let screenHeight = $(document).height();
     let perX = Math.round((event.pageX / screenWidth) * 100);
     let perY = Math.round((event.pageY / screenHeight) * 100);
     console.log(" X: " + perX + " Y: " + perY);

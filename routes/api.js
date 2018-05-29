@@ -14,10 +14,12 @@ router.post('/run/preset/:scenario/:buttonClicked', function (request, response)
       if (error) throw error;
       console.log(data);
       sendOverSocket(data);
-      response.json({success: true});
+      response.json({success:true});
+      showSuccess();
     });
   } else {
     response.json({success:false});
+    showError();
   }
 });
 
@@ -34,7 +36,7 @@ router.post('/run/code', function (request, response){
 router.post('/run/vision', function (request, response){
   let x = request.body.perX;
   let y = request.body.perY;
-  sendOverSocket('turnhead("'+x+' + "/" + '+y+'")');
+  sendOverSocket('turnhead("'+x+'/'+y+'")');
   response.json({success: true});
 });
 
