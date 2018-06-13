@@ -1,1 +1,4 @@
+*.wav
+.DS_Store
 node_modules
+google-credentials.json

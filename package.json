@@ -6,12 +6,18 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "@google-cloud/speech": "^1.5.0",
+    "@google-cloud/text-to-speech": "^0.1.0",
+    "binaryjs": "^0.2.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "hbs": "~4.0.1",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
-    "nodemon": "^1.17.5"
+    "node-record-lpcm16": "^0.3.0",
+    "node-samplerate": "^0.2.1",
+    "nodemon": "^1.17.5",
+    "wav": "^1.0.2"
   }
 }

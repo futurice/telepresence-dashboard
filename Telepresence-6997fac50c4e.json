@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "telepresence-206312",
+  "private_key_id": "6997fac50c4ee8bf69cfda901a545b747ae2eb16",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0f86xORRAYt+r\nOM/bg0jM8Wk/Fg5oJrs5mSgsq70D1dDkL7Yix7AI9YwkUjaGfLWjkzwkxuNMVvW9\nUMnTTMrA+gPE2ZmdcjLX8bmhlWh4YBTw8IMvYrhscu6vfvCCvBzMElDr5QiBPrah\n7BG2xRuc4OjuYAQACCCls+WcocogCHjC+WJayZ+V/0WlsLirr1AGMhx9Gb1WnlOx\nBpSdG0Fq+ld4Q0hFWC/ECgpPIfWq0PXMCNw1QMqunWofv22ifZWvvviwyYg290dY\nwv2IJRCuef1iZStec0527BbEiWsZ0B4/G1+zm6Wy6dog3gPPmQxjsD2q+xGglpxl\nEEVS9ksXAgMBAAECggEAK3ZE6kaQuko0ilGFN1me235btc2VTX3aAi3/TvZRbo17\nHZ7hb/F+UUHy60ICkBKSWB9ZUY+0Zorf5CSCXIc2oQ3yf2FYDGHVnUq+xIop3CZi\nlHuNUwkl2DM6hvZ9ajVqh7b3Vj3RdPGJX2btAwHmOrmrTM7A19MdLVkqdjM87MZE\nZf1p7+85KnsJkRr/50JdgnbXd2qLaJwkxzIUWqs2OIyWAnKiMHb81vXBG3qJs8ra\nRRGrQdklfnIQVdoa+cDcdPoDpFqGskpNnknOAlErbltv2qnbHWV+o8z4NsZpdxrX\nRTsr6DXNsNsP1LbIzchYQd1rcTwVHUXuFBcUsTLbZQKBgQD/KSME1HUB1TC5bYHp\nYdC/lutAxOhw7hXEBOIonl3QtTwiWpP7SGCKluczq3N5YPPC/1v13gwL7jFwmtzc\nXOHjMVeCmPq8jKRhojw7XZawl3y57J57EufZJ7YkicWYkqE/uznCE/uRWgE55tWc\nq3rVHoxYT9b5ZxelJDAU6eSD+wKBgQC1F8zopMkoTG5Y45TGxHuzGNAgZLxHqSWj\nTehjtZ2jQ2bGa7qpk6fh0Ss9maMxETrwf8w2TSQ5moI8Twbw9G7lLws78gXSWAjw\nr6IQdmChwAnfhPcTdZ/RI/e9l20VqB417eFi6G3AKGQb4wFMEIbiFxTebS4ZKOQ2\nk+ytBw1OlQKBgGK0fx93MGwtFFQm0IJ/nEkBELBVe7Vz5GeXnAUqfhAmi8SeVXB3\nZyE1juqmAF2L68AbGG/cHbzfv7BXt+hm5dsFU1zp4NTfcxdxsuskIQ7fCxjBN+1U\nOuv+OK+ZvB5xWn9U5dr17/MiZicH7MpWa4XV82SWPgrsnnD7tr3gXM3RAoGAf/p4\n8jR6gIM7PJBg9POoY9J2S15FfPM5ySXmxIh2Bgo9GJ7LhMn3y+uRfnAUVznRCGOY\ngwuTPS5HOa2zvxdPQ6Iyc0O//339m3LTuoSeF9FqaM9D+TmYHyonC5J3IeX0q7IY\nJVkTLsicruSHZyUK3b7oHaTU/iza0wNJMKKaMd0CgYEAmWSixmGkbHlVqdli7rN5\nS7gWgcwMuJ6s10iTP6cPHeNUoZFTOvzFLEl/vkPXL8tSkgFerC8V482nZPXSx8y1\nkO81Lu38R7d+m1c1i1MoporqbBTaRo9kAmwq928F2uzCALVW0USUP36sJBB/C4e4\n7wbhW5lrqzNNHWzQFUr4PCA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "telepresence-speech@telepresence-206312.iam.gserviceaccount.com",
+  "client_id": "113011426435517352470",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/telepresence-speech%40telepresence-206312.iam.gserviceaccount.com"
+}

@@ -4,6 +4,15 @@ var path = require('path');
 var net = require('net');
 var gestures = require('../data/gestures.json');
 var fs = require('fs');
+var binaryServer = require('binaryjs').BinaryServer;
+var server = binaryServer({port:9001});
+const record = require('node-record-lpcm16');
+const speech = require('@google-cloud/speech');
+const clientvoice = new speech.SpeechClient();
+
+const encoding = 'LINEAR16';
+const sampleRateHertz = 16000;
+const languageCode = 'en-US';
 
 /* GET home page. */
 router.post('/run/preset/:scenario/:buttonClicked', function (request, response){

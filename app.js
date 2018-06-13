@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 var visionRouter = require('./routes/vision');
+var voiceServer = require('./routes/voice');
 
 var app = express();
 
@@ -40,5 +41,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+voiceServer();
 
 module.exports = app;
