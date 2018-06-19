@@ -15,51 +15,69 @@ module.exports = function createServer() {
     keyFilename: '/Users/nulm/.config/gcloud/application_default_credentials.json'
   });
 
-  const filename = '/Users/nulm/Desktop/telepresence-dashboard/testi.wav'
+  const filename = 'testi.wav'
   const encoding = 'LINEAR16';
-  const sampleRateHertz = 16000;
+  const sampleRateHertz = 44100;
   const languageCode = 'en-US';
 
-  const request = {
-    config: {
+  const config = {
       encoding: encoding,
       sampleRateHertz: sampleRateHertz,
       languageCode: languageCode,
-    },
-    interimResults: false, // If you want interim results, set this to true
-  };
+    };
+  const audio = {
+    content: fs.readFileSync(filename).toString('base64'),
+    };
+  const request = {
+    config: config,
+    audio: audio,
+    };
 
-  // Create a recognize stream
   const recognizeStream = client
-    .streamingRecognize(request)
-    .on('error', console.error)
-    .on('data', data => {
-      console.log(`Transcription: ${data.results[0].alternatives[0].transcript}`);
+    .recognize(request)
+    .then(data => {
+      const response = data[0];
+      const transcription = response.results
+        .map(result => result.alternatives[0].transcript)
+        .join('\n');
+      console.log(`Transcription: `, transcription);
+    })
+    .catch(err => {
+      console.error('ERROR:', err);
     });
 
     server.on('connection', function(binaryClient){
       var fileWriter = null;
 
       binaryClient.on('stream', function(stream, meta){
-        var  fileWriter = new wav.FileWriter('testi.wav', {
+        console.log(`Stream opened. Starting a new file to ${filename}`);
+        var  fileWriter = new wav.FileWriter(filename, {
           channels: 1,
           sampleRate: 44100,
           bitDepth: 16
         });
         stream.pipe(fileWriter);
         stream.on('end', function() {
+          console.log('Stream closed.');
           fileWriter.end();
-          fs.createReadStream(filename).pipe(recognizeStream);
+          var stats = fs.statSync(filename);
+          console.log(`${filename} size: ${stats.size}`);
+          fileWriter = null;
         });
       });
 
-      binaryClient.on('close', function() {
+      binaryClient.on('close', function(){
+        console.log('Client closed.');
         if (fileWriter != null) {
           fileWriter.end();
+          console.log(`${filename} size: ${stats.size}`);
         }
       });
-})
 
+});
+
+    //TODO: transcript pitää siirtää voicestreamingiin jonka jälkeen se voidaan post-komennolla syöttää
+          // socketin kautta myrobotlabiin
 
   // Instantiates a client. If you don't specify credentials when constructing
   // the client, the client library will look for credentials in the
