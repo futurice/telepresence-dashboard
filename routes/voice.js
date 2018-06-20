@@ -25,26 +25,28 @@ module.exports = function createServer() {
       sampleRateHertz: sampleRateHertz,
       languageCode: languageCode,
     };
-  const audio = {
-    content: fs.readFileSync(filename).toString('base64'),
-    };
-  const request = {
-    config: config,
-    audio: audio,
-    };
 
-  const recognizeStream = client
-    .recognize(request)
-    .then(data => {
-      const response = data[0];
-      const transcription = response.results
-        .map(result => result.alternatives[0].transcript)
-        .join('\n');
-      console.log(`Transcription: `, transcription);
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
+  const recognizeStream = (filename) => {
+    const audio = {
+      content: fs.readFileSync(filename).toString('base64'),
+    };
+    const request = {
+      config: config,
+      audio: audio,
+    };
+    return client
+      .recognize(request)
+      .then(data => {
+        const response = data[0];
+        const transcription = response.results
+          .map(result => result.alternatives[0].transcript)
+          .join('\n');
+        console.log(`Transcription: `, transcription);
+      })
+      .catch(err => {
+        console.error('ERROR:', err);
+      });
+  }
 
     server.on('connection', function(binaryClient){
       var fileWriter = null;
@@ -63,6 +65,7 @@ module.exports = function createServer() {
           var stats = fs.statSync(filename);
           console.log(`${filename} size: ${stats.size}`);
           fileWriter = null;
+          recognizeStream(filename);
         });
       });
 
