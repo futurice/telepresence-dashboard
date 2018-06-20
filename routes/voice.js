@@ -2,6 +2,7 @@ var binaryServer = require('binaryjs').BinaryServer;
 var wav = require('wav');
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
+var net = require('net');
 
 module.exports = function createServer() {
 
@@ -15,7 +16,7 @@ module.exports = function createServer() {
     keyFilename: '/Users/nulm/.config/gcloud/application_default_credentials.json'
   });
 
-  const filename = 'testi.wav'
+  const filename = 'testi.wav';
   const encoding = 'LINEAR16';
   const sampleRateHertz = 44100;
   const languageCode = 'en-US';
@@ -42,6 +43,7 @@ module.exports = function createServer() {
           .map(result => result.alternatives[0].transcript)
           .join('\n');
         console.log(`Transcription: `, transcription);
+        sendOverSocket('momotalk("'+transcription+'")');
       })
       .catch(err => {
         console.error('ERROR:', err);
@@ -79,8 +81,19 @@ module.exports = function createServer() {
 
 });
 
-    //TODO: transcript pitää siirtää voicestreamingiin jonka jälkeen se voidaan post-komennolla syöttää
-          // socketin kautta myrobotlabiin
+function sendOverSocket(message){
+  var client = new net.Socket();
+  client.connect(15000, function(){
+    console.log('Connected');
+  });
+  client.on('data', function (reply) {
+    console.log("From robot: " + reply);
+  });
+  console.log("Sending to robot: " + message);
+  client.write(message);
+  client.end();
+}
+
 
   // Instantiates a client. If you don't specify credentials when constructing
   // the client, the client library will look for credentials in the
