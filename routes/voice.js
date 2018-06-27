@@ -3,6 +3,9 @@ var wav = require('wav');
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
 var net = require('net');
+var express = require('express');
+var router = express.Router();
+var languageCode = 'fi-FI';
 
 module.exports = function createServer() {
 
@@ -19,9 +22,13 @@ module.exports = function createServer() {
   const filename = 'testi.wav';
   const encoding = 'LINEAR16';
   const sampleRateHertz = 44100;
-  const languageCode = 'en-US';
+  router.post('/run/language/:languageCode', function(request, response){
+    console.log("signal received");
+    languageCode = request.params.languageCode;
+  })
+  //const languageCode = 'fi-FI';
 
-  const config = {
+  var config = {
       encoding: encoding,
       sampleRateHertz: sampleRateHertz,
       languageCode: languageCode,
@@ -92,23 +99,10 @@ function sendOverSocket(message){
   console.log("Sending to robot: " + message);
   client.write(message);
   client.end();
-}
+  }
 
 
-  // Instantiates a client. If you don't specify credentials when constructing
-  // the client, the client library will look for credentials in the
-  // environment.
-
-  //server.on('connection', function(binaryClient) {
-    //binaryClient.on('stream', function (stream, meta) {
-    //  console.log('Opening new stream');
-      //stream.on('error', console.error)
-        //.on('end', function() {
-          //console.log('Binary stream from frontend ended.')
-        //})
-      //  .pipe(recognizeStream);
-    //});
-  //});
-
-
+  //TODO: From direct audio input modulate the voice and send it to myrobotlab
+  //      or then need to make it into an audio file that has the modulated voice
+  //      and then send that file to myrobotlab, or, read the audio as string
 }
