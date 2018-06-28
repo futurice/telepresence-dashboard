@@ -42,7 +42,7 @@ The head of the robot can be moved by directly clicking on the screen. As of now
 
 It is possible to send live audio stream from the user to the participants. The audio feedback will not go through MyRobotLab but rather, is sent straight from the microphone of the operating computer to a speaker that has been installed to the robot. The audio stream can be started by clicking the "Stream" button that is located in the upper-right corner of the screen. This will initiate the live audio stream functionality enabling the user to directly communicate with the participants. The volume of the stream can be controlled by using the volume bar that has been inserted above the "Stream" button. It should be noted that too high volumes will produce noise, disrupting the stream. The stream can be stopped by clicking the "Stream" button for a 2nd time.
 
-### Communication via MyRobotLab (Communication with the robot)
+### Communication via MyRobotLab (Communication through the robot)
 
 Communication can also be done by having the user speak, and convert that speech to text, which will then be sent to MyRobotLab and turned into the robot's own speech. The service uses Google Cloud's Speech API, for which the user needs local credentials and access rights to the project. Quickstart for installing Google Cloud SDK can be found here: https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries. Also, installing gcloud becomes necessary in order to use the API, instructions: https://cloud.google.com/sdk/docs/.
 
