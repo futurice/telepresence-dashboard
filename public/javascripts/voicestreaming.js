@@ -1,9 +1,12 @@
 (function ($) {
 
   var Stream = null;
+  var Stream2 = null;
   var audioContext = window.AudioContext;
   var context = new audioContext();
   var binaryClient;
+  var binaryClient2;
+
 
   //$('#start-record').click(function(event){
   $(document).keydown(function(){
@@ -17,6 +20,20 @@
       navigator.getUserMedia(session, initializeRecorder, onError);
       binaryClient.on('open', function() {
         Stream = binaryClient.createStream();
+      });
+    }
+  });
+
+  $(document).keydown(function(){
+    if (Stream2 === null && event.code == 'KeyS') {
+      var session = {
+        audio: true,
+        video: false
+      };
+      binaryClient2 = new BinaryClient('ws://localhost:9003'); //ei localhostia vaan mitä jos tähän laittaisi yhdistetyn tietokoneen IP:n ja 8080:n esimerkiksi. Tai joku audion vastaanottoon erikoistunut portti?? 
+      navigator.getUserMedia(session, initializeRecorder2, onError);
+      binaryClient2.on('open', function() { //pitäiskö laittaa binaryclientin tilalle joku muu. Mihin tarvitsen sitä??
+        Stream2 = binaryClient2.createStream();
       });
     }
   });
@@ -63,10 +80,37 @@
     });
   }
 
+  function initializeRecorder2(audioStream) {
+    var audioInput = context.createMediaStreamSource(audioStream);
+    var bufferSize = 2048;
+
+    console.log(context.sampleRate);
+    var recorder = context.createScriptProcessor(bufferSize, 1, 1);
+    recorder.onaudioprocess = recorderProcess2;
+    audioInput.connect(recorder);
+    recorder.connect(context.destination);
+    $(document).unbind("keyup")
+      .keyup(function() {
+        if (event.code == 'KeyS') {
+          console.log(Stream2);
+          Stream2.end();
+          Stream2 = null;
+          console.log("KeyS released.")
+        }
+      });
+  }
+
   function recorderProcess(e) {
     var left = e.inputBuffer.getChannelData(0);
     if (Stream !== null) {
       Stream.write(convertFloat32toInt16(left));
+    }
+  }
+
+  function recorderProcess2(e) {
+    var left = e.inputBuffer.getChannelData(0);
+    if (Stream2 !== null) {
+      Stream2.write(convertFloat32toInt16(left));
     }
   }
 

@@ -6,13 +6,15 @@ var net = require('net');
 var express = require('express');
 var router = express.Router();
 var languageCode = 'fi-FI';
+const Speaker = require('speaker');
+
 
 module.exports = function createServer() {
-
 
   var server = binaryServer({port:9002});
     // Imports the Google Cloud client library
 
+  var server2 = binaryServer({port:9003});
 
   // Creates a client
   const client = new speech.SpeechClient({
@@ -87,6 +89,22 @@ module.exports = function createServer() {
       });
 
 });
+server2.on('connection', function(binaryClient2){
+  binaryClient2.on('stream', function(stream2, meta){ //tää ei välttämättä toimi jos tää on Google Cloud spesifi jollain tasolla??
+    const speaker = new Speaker({
+        channels: 1,
+        bitDepth: 16,
+        sampleRate: 44100
+      });
+
+    //process.stdin.pipe(speaker);
+    stream2.pipe(speaker);
+    stream2.on('end', function(){
+      speaker.end();
+      console.log("Live stream closed!")
+    });
+  });
+});
 
 function sendOverSocket(message){
   var client = new net.Socket();
@@ -101,8 +119,4 @@ function sendOverSocket(message){
   client.end();
   }
 
-
-  //TODO: From direct audio input modulate the voice and send it to myrobotlab
-  //      or then need to make it into an audio file that has the modulated voice
-  //      and then send that file to myrobotlab, or, read the audio as string
 }
