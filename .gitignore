@@ -1,4 +1,7 @@
 *.wav
 .DS_Store
+.key
 node_modules
 google-credentials.json
+encryption
+.dmg

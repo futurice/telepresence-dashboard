@@ -60,6 +60,9 @@ function sendOverSocket(message){
   console.log("Sending to robot: " + message);
   client.write(message);
   client.end();
+  process.on('uncaughtException', function (err) {
+    console.log(err);
+  });
 }
 
 module.exports = router;

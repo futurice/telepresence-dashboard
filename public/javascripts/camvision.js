@@ -6,8 +6,8 @@
     let perY = Math.round((event.pageY / screenHeight) * 100);
     console.log(" X: " + perX + " Y: " + perY);
     $.post('api/run/vision/',{perX:perX, perY:perY}, function(data){
-      console.log(data);
-    }, "json")
-		.fail(function(error){console.log(error)});
+       console.log(data);
+      }, "json")
+
   });
 })(jQuery);

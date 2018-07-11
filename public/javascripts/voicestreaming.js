@@ -1,14 +1,13 @@
 (function ($) {
 
   var Stream = null;
-  var Stream2 = null;
+  let Stream2 = null;
   var audioContext = window.AudioContext;
   var context = new audioContext();
   var binaryClient;
   var binaryClient2;
 
 
-  //$('#start-record').click(function(event){
   $(document).keydown(function(){
     if (Stream === null && event.code == 'Space') {
       var session = {
@@ -30,11 +29,12 @@
         audio: true,
         video: false
       };
-      binaryClient2 = new BinaryClient('ws://localhost:9003'); //ei localhostia vaan mitä jos tähän laittaisi yhdistetyn tietokoneen IP:n ja 8080:n esimerkiksi. Tai joku audion vastaanottoon erikoistunut portti?? 
+      binaryClient2 = new BinaryClient('ws://localhost:9003');
       navigator.getUserMedia(session, initializeRecorder2, onError);
-      binaryClient2.on('open', function() { //pitäiskö laittaa binaryclientin tilalle joku muu. Mihin tarvitsen sitä??
+      binaryClient2.on('open', function() {
         Stream2 = binaryClient2.createStream();
       });
+      //Stream2 = null;
     }
   });
 
@@ -95,7 +95,7 @@
           console.log(Stream2);
           Stream2.end();
           Stream2 = null;
-          console.log("KeyS released.")
+          console.log("KeyS released.");
         }
       });
   }
@@ -109,14 +109,16 @@
 
   function recorderProcess2(e) {
     var left = e.inputBuffer.getChannelData(0);
+    //worker.postMessage({cmd: 'resample', buffer: left});
+    //drawBuffer(left);
     if (Stream2 !== null) {
-      Stream2.write(convertFloat32toInt16(left));
+    Stream2.write(convertFloat32toInt16(left));
     }
   }
 
   function convertFloat32toInt16(buffer) {
-    bl = buffer.length;
-    buf = new Int16Array(bl);
+    var bl = buffer.length;
+    var buf = new Int16Array(bl);
     while (bl--) {
       buf[bl] = Math.min(1, buffer[bl])*0x7FFF;
     }

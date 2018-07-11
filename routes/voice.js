@@ -6,8 +6,7 @@ var net = require('net');
 var express = require('express');
 var router = express.Router();
 var languageCode = 'fi-FI';
-const Speaker = require('speaker');
-
+var Speaker = require('speaker');
 
 module.exports = function createServer() {
 
@@ -22,6 +21,7 @@ module.exports = function createServer() {
   });
 
   const filename = 'testi.wav';
+  //const filename1 = 'stream.wav';
   const encoding = 'LINEAR16';
   const sampleRateHertz = 44100;
   router.post('/run/language/:languageCode', function(request, response){
@@ -90,22 +90,93 @@ module.exports = function createServer() {
 
 });
 server2.on('connection', function(binaryClient2){
-  binaryClient2.on('stream', function(stream2, meta){ //tää ei välttämättä toimi jos tää on Google Cloud spesifi jollain tasolla??
-    const speaker = new Speaker({
-        channels: 1,
-        bitDepth: 16,
-        sampleRate: 44100
-      });
-
-    //process.stdin.pipe(speaker);
-    stream2.pipe(speaker);
-    stream2.on('end', function(){
-      speaker.end();
-      console.log("Live stream closed!")
+    //var mic = null;
+    //var speaker = null;
+    console.log("Speaker initiated!");
+    //var FileWriter1 = require('wav').FileWriter;
+    //var mic = require('mic');
+    //var micInstance = mic({
+      //rate: 44100,
+      //channels: 1,
+      //debug: true
+    //});
+    var speaker = new Speaker({
+      channels: 1,
+      bitDepth: 16,
+      sampleRate: 44100
     });
-  });
-});
 
+    //speaker = null;
+
+    binaryClient2.on('stream', function(stream2, meta){
+      stream2.pipe(speaker);
+      //var micInputStream = micInstance.getAudioStream();
+      //var outputFileStream = new wav.FileWriter('./streamtest.wav',{
+        //sampleRate: 44100,
+        //channels: 1,
+        //bitDepth: 16
+      //});
+
+      //micInputStream.pipe(outputFileStream);
+      //micInstance.start();
+      console.log("Before speaker is piped!");
+      //micInputStream.pipe(speaker);
+      /*var fileWriter1 = new wav.FileWriter(filename1, {
+        channels: 1,
+        sampleRate: 44100,
+        bitDepth: 16
+        });
+      var speaker = new Speaker({
+          channels: 1,
+          bitDepth: 16,
+          sampleRate: 44100
+        });*/
+      //stream2.pipe(fileWriter1);
+      //stream2.pipe(speaker);
+
+      //stream2.pipe(speaker);
+      //pump(stream2, speaker, function(err) {
+        //console.log('pipe finished', err)
+      //});
+      stream2.on('end', function(){
+        speaker.end();
+        //micInstance.stop();
+        //sendOverSocket2("message");
+        //fileWriter1.end();
+        //fileWriter1.pipe(speaker);
+        //stream2.unpipe(speaker);
+        //speaker.end();
+
+        console.log("Stream 2 closed!");
+      });
+      //micInputStream = null;
+      //outputFileStream = null;
+    });
+
+    binaryClient2.on('close', function(){
+      console.log('Client 2 closed!');
+      if (speaker != null) {
+        speaker.end();
+      }
+    });
+
+  });
+  /*binaryClient2.on('close', function(){
+    console.log("Client2 closed.");
+    speaker.end();
+    console.log(speaker);
+  });*/
+
+function sendOverSocket2(message){
+  var client = new net.Socket();
+  client.connect(15000, function(){
+    console.log('Streaming');
+  });
+  client.end();
+  process.on('uncaughtException', function (err){
+    console.log(err);
+  });
+}
 function sendOverSocket(message){
   var client = new net.Socket();
   client.connect(15000, function(){
@@ -117,6 +188,9 @@ function sendOverSocket(message){
   console.log("Sending to robot: " + message);
   client.write(message);
   client.end();
+  process.on('uncaughtException', function (err) {
+    console.log(err);
+    });
   }
 
 }
