@@ -34,8 +34,7 @@
       binaryClient2.on('open', function() {
         Stream2 = binaryClient2.createStream();
       });
-      //Stream2 = null;
-    }
+    };
   });
 
   $('#tele-english').click(function(){
@@ -79,16 +78,17 @@
       }
     });
   }
-
+  counter = 0
   function initializeRecorder2(audioStream) {
     var audioInput = context.createMediaStreamSource(audioStream);
     var bufferSize = 2048;
-
+    if (counter == 0) {
     console.log(context.sampleRate);
     var recorder = context.createScriptProcessor(bufferSize, 1, 1);
     recorder.onaudioprocess = recorderProcess2;
     audioInput.connect(recorder);
     recorder.connect(context.destination);
+  }
     $(document).unbind("keyup")
       .keyup(function() {
         if (event.code == 'KeyS') {
@@ -96,6 +96,7 @@
           Stream2.end();
           Stream2 = null;
           console.log("KeyS released.");
+          counter += 1;
         }
       });
   }
@@ -109,8 +110,6 @@
 
   function recorderProcess2(e) {
     var left = e.inputBuffer.getChannelData(0);
-    //worker.postMessage({cmd: 'resample', buffer: left});
-    //drawBuffer(left);
     if (Stream2 !== null) {
     Stream2.write(convertFloat32toInt16(left));
     }
@@ -136,6 +135,14 @@
   	document.getElementById('volume-voice').setAttribute('disabled', 'disabled');
   	document.getElementById('microphone-error').style.display = 'block';
   });
+
+  var ringModulator = new Pizzicato.Effects.RingModulator({
+    speed: 1800,
+    distortion: 10,
+    mix: 0.5
+  });
+
+  voice.addEffect(ringModulator);
 
   var segments = [
   	{
