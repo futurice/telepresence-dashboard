@@ -6,7 +6,7 @@ var net = require('net');
 var express = require('express');
 var router = express.Router();
 var languageCode = 'fi-FI';
-Speaker = require('speaker');
+var Speaker = require('speaker');
 
 module.exports = function createServer() {
 
@@ -15,13 +15,16 @@ module.exports = function createServer() {
 
   var server2 = binaryServer({port:9003});
 
+  var server3 = binaryServer({port:9004});
+
+  var server4 = binaryServer({port:9005});
+
   // Creates a client
   const client = new speech.SpeechClient({
     keyFilename: '/Users/nulm/.config/gcloud/application_default_credentials.json'
   });
 
   const filename = 'testi.wav';
-  const filename1 = 'stream.wav';
   const encoding = 'LINEAR16';
   const sampleRateHertz = 44100;
   router.post('/run/language/:languageCode', function(request, response){
@@ -112,8 +115,53 @@ server2.on('connection', function(binaryClient2){
   });
 
 });
-server2.on('close', function(){
-  console.log("Server 2 closed");
+
+server3.on('connection', function(binaryClient3){
+  console.log("Server 3 opened.");
+
+  binaryClient3.on('stream', function(stream3, speaker, meta){
+    var speaker = new Speaker({
+      channels: 1,
+      sampleRate: 44100,
+      bitDepth: 16
+    });
+    console.log("Client 3 opened.");
+    stream3.pipe(speaker);
+
+    stream3.on('end', function() {
+      console.log('Stream 3 closed.');;
+      binaryClient3.close();
+    });
+  });
+
+  binaryClient3.on('close', function(){
+    console.log('Client 3 closed.');
+  });
+
+});
+
+server4.on('connection', function(binaryClient4){
+  console.log("Server 4 opened.");
+
+  binaryClient4.on('stream', function(stream4, speaker, meta){
+    var speaker = new Speaker({
+      channels: 1,
+      sampleRate: 44100,
+      bitDepth: 16
+    });
+    console.log("Client 4 opened.");
+    stream4.pipe(speaker);
+
+    stream4.on('end', function() {
+      console.log('Stream 4 closed.');;
+      binaryClient4.close();
+    });
+  });
+
+  binaryClient4.on('close', function(){
+    console.log('Client 4 closed.');
+  });
+
 });
 
 function sendOverSocket(message){

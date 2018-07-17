@@ -1,11 +1,15 @@
 (function ($) {
 
   var Stream = null;
-  let Stream2 = null;
+  var Stream2 = null;
+  var Stream3 = null;
+  var Stream4 = null;
   var audioContext = window.AudioContext;
   var context = new audioContext();
   var binaryClient;
   var binaryClient2;
+  var binaryClient3;
+  var binaryClient4;
 
 
   $(document).keydown(function(){
@@ -33,6 +37,34 @@
       navigator.getUserMedia(session, initializeRecorder2, onError);
       binaryClient2.on('open', function() {
         Stream2 = binaryClient2.createStream();
+      });
+    };
+  });
+
+  $(document).keydown(function(){
+    if (Stream3 === null && event.code == 'KeyD') {
+      var session = {
+        audio: true,
+        video: false
+      };
+      binaryClient3 = new BinaryClient('ws://localhost:9004');
+      navigator.getUserMedia(session, initializeRecorder3, onError);
+      binaryClient3.on('open', function() {
+        Stream3 = binaryClient3.createStream();
+      });
+    };
+  });
+
+  $(document).keydown(function(){
+    if (Stream4 === null && event.code == 'KeyF') {
+      var session = {
+        audio: true,
+        video: false
+      };
+      binaryClient4 = new BinaryClient('ws://localhost:9005');
+      navigator.getUserMedia(session, initializeRecorder4, onError);
+      binaryClient4.on('open', function() {
+        Stream4 = binaryClient4.createStream();
       });
     };
   });
@@ -81,12 +113,31 @@
   counter = 0
   function initializeRecorder2(audioStream) {
     var audioInput = context.createMediaStreamSource(audioStream);
+    var distortion = context.createWaveShaper();
+    var biquadFilter = context.createBiquadFilter();
+    var compressor = context.createDynamicsCompressor();
+    compressor.threshold.setValueAtTime(-50, context.currentTime);
+    compressor.knee.setValueAtTime(40, context.currentTime);
+    compressor.ratio.setValueAtTime(12, context.currentTime);
+    compressor.attack.setValueAtTime(0, context.currentTime);
+    compressor.release.setValueAtTime(0.25, context.currentTime);
+    var doppler = context.listener;
+    doppler.dopplerFactor = 1;
+    biquadFilter.type = "lowshelf";
+    biquadFilter.frequency.value = 200;
+    biquadFilter.gain.value = 5;
+    biquadFilter.detune.value = -4000;
     var bufferSize = 2048;
     if (counter == 0) {
     console.log(context.sampleRate);
     var recorder = context.createScriptProcessor(bufferSize, 1, 1);
     recorder.onaudioprocess = recorderProcess2;
-    audioInput.connect(recorder);
+    audioInput.connect(distortion);
+    distortion.connect(biquadFilter);
+    biquadFilter.connect(compressor);
+    compressor.connect(recorder);
+    distortion.curve = makeDistortionCurve(400);
+    distortion.oversample = 'none';
     recorder.connect(context.destination);
   }
     $(document).unbind("keyup")
@@ -97,6 +148,71 @@
           Stream2 = null;
           console.log("KeyS released.");
           counter += 1;
+        }
+      });
+  }
+
+  function makeDistortionCurve(amount) {
+  var k = typeof amount === 'number' ? amount : 0,
+    n_samples = 44100,
+    curve = new Float32Array(n_samples),
+    deg = Math.PI / 180,
+    i = 0,
+    x;
+  for ( ; i < n_samples; ++i ) {
+    x = i * 2 / n_samples - 1;
+    curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+  }
+  return curve;
+};
+
+  counter3 = 0
+  function initializeRecorder3(audioStream) {
+    var audioInput = context.createMediaStreamSource(audioStream);
+    var bufferSize = 2048;
+    if (counter3 == 0) {
+    console.log(context.sampleRate);
+    var recorder = context.createScriptProcessor(bufferSize, 1, 1);
+    recorder.onaudioprocess = recorderProcess3;
+    audioInput.connect(recorder);
+    recorder.connect(context.destination);
+  }
+    $(document).unbind("keyup")
+      .keyup(function() {
+        if (event.code == 'KeyD') {
+          console.log(Stream3);
+          Stream3.end();
+          Stream3 = null;
+          console.log("KeyD released.");
+          counter3 += 1;
+        }
+      });
+  }
+
+  counter4 = 0
+  function initializeRecorder4(audioStream) {
+    var audioInput = context.createMediaStreamSource(audioStream);
+    var bufferSize = 2048;
+    var pitchShift = PitchShift(context);
+    pitchShift.transpose = 12;
+    pitchShift.wet.value = 2;
+    pitchShift.dry.value = 0.5;
+    if (counter4 == 0) {
+    console.log(context.sampleRate);
+    var recorder = context.createScriptProcessor(bufferSize, 1, 1);
+    recorder.onaudioprocess = recorderProcess4;
+    audioInput.connect(pitchShift);
+    pitchShift.connect(recorder);
+    recorder.connect(context.destination);
+  }
+    $(document).unbind("keyup")
+      .keyup(function() {
+        if (event.code == 'KeyF') {
+          console.log(Stream4);
+          Stream4.end();
+          Stream4 = null;
+          console.log("KeyF released.");
+          counter4 += 1;
         }
       });
   }
@@ -115,6 +231,20 @@
     }
   }
 
+  function recorderProcess3(e) {
+    var left = e.inputBuffer.getChannelData(0);
+    if (Stream3 !== null) {
+    Stream3.write(convertFloat32toInt16(left));
+    }
+  }
+
+  function recorderProcess4(e) {
+    var left = e.inputBuffer.getChannelData(0);
+    if (Stream4 !== null) {
+    Stream4.write(convertFloat32toInt16(left));
+    }
+  }
+
   function convertFloat32toInt16(buffer) {
     var bl = buffer.length;
     var buf = new Int16Array(bl);
@@ -123,7 +253,7 @@
     }
     return buf.buffer;
   }
-
+  /*
   var Dolby=Dolby||{};!function(){"use strict";Dolby.supportDDPlus=!1;var e=new Audio;""!=e.canPlayType('audio/mp4;codecs="ec-3"')&&(-1==navigator.userAgent.indexOf("CPU iPhone OS 9_3")&&-1==navigator.userAgent.indexOf("CPU OS 9_3")||-1==navigator.userAgent.indexOf("Safari")||-1==navigator.userAgent.indexOf("Version/9")||
   (Dolby.supportDDPlus=!0),-1!=navigator.userAgent.indexOf("MacOSX10_1")&&-1!=navigator.userAgent.indexOf("Safari")&&-1!=navigator.userAgent.indexOf("Version/9")&&(Dolby.supportDDPlus=!0),-1!=
   navigator.userAgent.indexOf("Edge")&&(Dolby.supportDDPlus=!0),-1!=navigator.userAgent.indexOf("Windows Phone 10")&&(Dolby.supportDDPlus=!1)),Dolby.checkDDPlus=function(){return Dolby.supportDDPlus}}();
@@ -207,6 +337,6 @@
   		}
 
   	})(segments[i]);
-  }
+  }*/
 
 })(jQuery);
