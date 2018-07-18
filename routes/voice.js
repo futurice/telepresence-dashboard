@@ -17,8 +17,6 @@ module.exports = function createServer() {
 
   var server3 = binaryServer({port:9004});
 
-  var server4 = binaryServer({port:9005});
-
   // Creates a client
   const client = new speech.SpeechClient({
     keyFilename: '/Users/nulm/.config/gcloud/application_default_credentials.json'
@@ -63,7 +61,6 @@ module.exports = function createServer() {
 
     server.on('connection', function(binaryClient){
       var fileWriter = null;
-
       binaryClient.on('stream', function(stream, meta){
         console.log(`Stream opened. Starting a new file to ${filename}`);
         var  fileWriter = new wav.FileWriter(filename, {
@@ -81,7 +78,6 @@ module.exports = function createServer() {
           recognizeStream(filename);
         });
       });
-
       binaryClient.on('close', function(){
         console.log('Client closed.');
         if (fileWriter != null) {
@@ -89,12 +85,10 @@ module.exports = function createServer() {
           console.log(`${filename} size: ${stats.size}`);
         }
       });
-
 });
 
 server2.on('connection', function(binaryClient2){
   console.log("Server 2 opened.");
-
   binaryClient2.on('stream', function(stream2, speaker, meta){
     var speaker = new Speaker({
       channels: 1,
@@ -103,22 +97,18 @@ server2.on('connection', function(binaryClient2){
     });
     console.log("Client 2 opened");
     stream2.pipe(speaker);
-
     stream2.on('end', function() {
       console.log('Stream 2 closed.');;
       binaryClient2.close();
     });
   });
-
   binaryClient2.on('close', function(){
     console.log('Client 2 closed.');
   });
-
 });
 
 server3.on('connection', function(binaryClient3){
   console.log("Server 3 opened.");
-
   binaryClient3.on('stream', function(stream3, speaker, meta){
     var speaker = new Speaker({
       channels: 1,
@@ -127,41 +117,14 @@ server3.on('connection', function(binaryClient3){
     });
     console.log("Client 3 opened.");
     stream3.pipe(speaker);
-
     stream3.on('end', function() {
       console.log('Stream 3 closed.');;
       binaryClient3.close();
     });
   });
-
   binaryClient3.on('close', function(){
     console.log('Client 3 closed.');
   });
-
-});
-
-server4.on('connection', function(binaryClient4){
-  console.log("Server 4 opened.");
-
-  binaryClient4.on('stream', function(stream4, speaker, meta){
-    var speaker = new Speaker({
-      channels: 1,
-      sampleRate: 44100,
-      bitDepth: 16
-    });
-    console.log("Client 4 opened.");
-    stream4.pipe(speaker);
-
-    stream4.on('end', function() {
-      console.log('Stream 4 closed.');;
-      binaryClient4.close();
-    });
-  });
-
-  binaryClient4.on('close', function(){
-    console.log('Client 4 closed.');
-  });
-
 });
 
 function sendOverSocket(message){
