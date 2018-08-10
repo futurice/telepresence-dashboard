@@ -45,6 +45,13 @@ a {
   z-index: 3;
 }
 
+#stream-alert {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  display: none;
+}
 /*#tp-success {
   display:none;
 }

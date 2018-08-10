@@ -49,6 +49,25 @@ router.post('/run/vision', function (request, response){
   response.json({success: true});
 });
 
+router.post('/run/vision2', function (request, response){
+  let up = request.body.up;
+  let down = request.body.down;
+  let right = request.body.right;
+  let left = request.body.left;
+  if (up != null) {
+    sendOverSocket("Up");
+  }
+  else if (down != null) {
+    sendOverSocket("Down");
+  }
+  else if (right != null) {
+    sendOverSocket("Right");
+  }
+  else if (left != null) {
+    sendOverSocket("Left");
+  }
+})
+
 function sendOverSocket(message){
   var client = new net.Socket();
   client.connect(15000, function(){

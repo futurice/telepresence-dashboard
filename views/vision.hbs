@@ -1,10 +1,16 @@
 <div>
-  <img src="http://192.168.43.226:8999/++video?cameraNum=0" id="cam-lower-layer">
+  <!--<img src="http://192.168.43.226:8999/++video?cameraNum=0" id="cam-lower-layer">-->
+  <img src="http://10.6.2.239:8999/++video?cameraNum=0" id="cam-lower-layer">
+  <!--<audio src="http://10.6.2.239:8999/++audio?cameraNum=0">TODO: AUDIO OLISI HYVA
+        SAADA TOIMIMAAN FRONTIN KAUTTA-->
 </div>
 <div id="cam-top-layer"></div>
 <div id="speech-ctl-layer">
-  <input type="button" value="Finnish" id="tele-finnish">
-  <input type="button" value="English" id="tele-english">
+  <input type="button" value="fi-FI" id="tele-finnish">
+  <input type="button" value="en-US" id="tele-english">
+</div>
+<div class="alert alert-danger fade show" role="alert" id="stream-alert">
+  Streaming
 </div>
 
 <script src="/javascripts/audio-npm.js"></script>

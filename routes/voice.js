@@ -5,7 +5,7 @@ const fs = require('fs');
 var net = require('net');
 var express = require('express');
 var router = express.Router();
-var languageCode = 'fi-FI';
+languageCode = 'fi-FI';
 var Speaker = require('speaker');
 
 module.exports = function createServer() {
@@ -25,10 +25,6 @@ module.exports = function createServer() {
   const filename = 'testi.wav';
   const encoding = 'LINEAR16';
   const sampleRateHertz = 44100;
-  router.post('/run/language/:languageCode', function(request, response){
-    console.log("signal received");
-    languageCode = request.params.languageCode;
-  })
 
   var config = {
       encoding: encoding,
@@ -98,7 +94,7 @@ server2.on('connection', function(binaryClient2){
     console.log("Client 2 opened");
     stream2.pipe(speaker);
     stream2.on('end', function() {
-      console.log('Stream 2 closed.');;
+      console.log('Stream 2 closed.');
       binaryClient2.close();
     });
   });
@@ -118,7 +114,7 @@ server3.on('connection', function(binaryClient3){
     console.log("Client 3 opened.");
     stream3.pipe(speaker);
     stream3.on('end', function() {
-      console.log('Stream 3 closed.');;
+      console.log('Stream 3 closed.');
       binaryClient3.close();
     });
   });

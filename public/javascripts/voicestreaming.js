@@ -1,5 +1,4 @@
 (function ($) {
-
   var Stream = null;
   var Stream2 = null;
   var Stream3 = null;
@@ -8,67 +7,100 @@
   var binaryClient;
   var binaryClient2;
   var binaryClient3;
+  var streams = [];
+  var streams2 = [];
+  var streams3 = [];
+
+  $('#tele-finnish').click(function(){
+    var languageCode = "fi-FI";
+    $.post('api/run/languageCode', {languageCode:languageCode}, function(data){
+      console.log(data);
+    });
+  });
+
+  $('#tele-english').click(function(){
+    var languageCode = 'en-US';
+    $.post('api/run/languageCode', {languageCode:languageCode}, function(data){
+      console.log(data);
+    });
+  });
+
+  $(document).ready(function() {
+    var session = {
+      audio: true,
+      video: false
+    };
+    navigator.getUserMedia(session, initializeRecorder, onError);
+  });
 
   $(document).keydown(function(){
-    if (Stream === null && event.code == 'Space') {
-      var session = {
-        audio: true,
-        video: false
-      };
+    if (streams.length == 0 && event.code == 'Space') {
+      $('#stream-alert').css("display", "inline");
       binaryClient = new BinaryClient('ws://localhost:9002');
       console.log("space pressed.");
-      navigator.getUserMedia(session, initializeRecorder, onError);
       binaryClient.on('open', function() {
-        Stream = binaryClient.createStream();
+        streams.push(binaryClient.createStream());
       });
+    };
+  });
+
+  $(document).keyup(function() {
+    if (event.code == 'Space') {
+      $('#stream-alert').css("display", "none");
+      console.log("Space released");
+      var stream = streams.pop();
+      while (stream !== undefined) {
+        stream.end();
+        stream = streams.pop();
+        console.log(streams);
+      }
     }
   });
 
   $(document).keydown(function(){
-    if (Stream2 === null && event.code == 'KeyS') {
-      var session = {
-        audio: true,
-        video: false
-      };
+    if (streams2.length == 0 && event.code == 'KeyS') {
+      $('#stream-alert').css("display", "inline");
       binaryClient2 = new BinaryClient('ws://localhost:9003');
-      navigator.getUserMedia(session, initializeRecorder2, onError);
       binaryClient2.on('open', function() {
-        Stream2 = binaryClient2.createStream();
+        streams2.push(binaryClient2.createStream());
       });
     };
   });
+
+  $(document).keyup(function() {
+      if (event.code == 'KeyS') {
+        $('#stream-alert').css("display", "none");
+        console.log("KeyS released.");
+        var stream2 = streams2.pop();
+        while (stream2 !== undefined) {
+          stream2.end();
+          stream2 = streams2.pop();
+          console.log(streams2);
+        }
+      }
+    });
 
   $(document).keydown(function(){
-    if (Stream3 === null && event.code == 'KeyD') {
-      var session = {
-        audio: true,
-        video: false
-      };
+    if (streams3.length == 0 && event.code == 'KeyD') {
+      $('#stream-alert').css("display", "inline");
       binaryClient3 = new BinaryClient('ws://localhost:9004');
-      navigator.getUserMedia(session, initializeRecorder3, onError);
       binaryClient3.on('open', function() {
-        Stream3 = binaryClient3.createStream();
+        streams3.push(binaryClient3.createStream());
       });
     };
   });
 
-  $('#tele-english').click(function(){
-    const languageCode = 'en-US';
-    console.log("English");
-    $.post('voice/run/language/'+languageCode, function(data)
-      {console.log(data);
-      },"json")
-      .fail(function(error){console.log(error)});
-    });
-
-  $('#tele-finnish').click(function(){
-    const languageCode = 'fi-FI';
-    $.post('voice/run/language/'+languageCode, function(data)
-      {console.log(data);
-      },"json")
-      .fail(function(error){console.log(error)});
-    });
-
+  $(document).keyup(function() {
+    if (event.code == 'KeyD') {
+      $('#stream-alert').css("display", "none");
+      var stream3 = streams3.pop();
+      while (stream3 !== undefined) {
+        stream3.end();
+        stream3 = streams3.pop();
+        console.log(streams3);
+      }
+    }
+  });
 
   function onError(error) {
     console.log("An error has occurred.");
@@ -77,91 +109,43 @@
   function initializeRecorder(audioStream) {
     var audioInput = context.createMediaStreamSource(audioStream);
     var bufferSize = 2048;
-
     console.log(context.sampleRate);
     var recorder = context.createScriptProcessor(bufferSize, 1, 1);
     recorder.onaudioprocess = recorderProcess;
     audioInput.connect(recorder);
     recorder.connect(context.destination);
-    $(document).unbind("keyup")
-      .keyup(function() {
-        if (event.code == 'Space') {
-          console.log(Stream);
-          Stream.end();
-          Stream = null;
-          console.log("Space released");
-      }
-    });
   }
-  counter = 0
+
   function initializeRecorder2(audioStream) {
     var audioInput = context.createMediaStreamSource(audioStream);
     var pitchShift = PitchShift(context);
-    pitchShift.transpose = 12;
-    pitchShift.wet.value = 2;
-    pitchShift.dry.value = 0.5;
+    var biquadFilter = context.createBiquadFilter();
     var bufferSize = 2048;
-    if (counter == 0) {
+    pitchShift.transpose = 1;
+    pitchShift.wet.value = 0.5;
+    pitchShift.dry.value = 0;
+    biquadFilter.frequency.value = 200;
+    biquadFilter.type = "highshelf";
+    biquadFilter.gain.value = 20;
     console.log(context.sampleRate);
     var recorder = context.createScriptProcessor(bufferSize, 1, 1);
-    recorder.onaudioprocess = recorderProcess2;
+    recorder.onaudioprocess = recorderProcess;
     audioInput.connect(pitchShift);
-    pitchShift.connect(recorder);
+    pitchShift.connect(biquadFilter);
+    biquadFilter.connect(recorder);
     recorder.connect(context.destination);
-  }
-    $(document).unbind("keyup")
-      .keyup(function() {
-        if (event.code == 'KeyS') {
-          console.log(Stream2);
-          Stream2.end();
-          Stream2 = null;
-          console.log("KeyS released.");
-          counter += 1;
-        }
-      });
-  }
-
-  counter3 = 0
-  function initializeRecorder3(audioStream) {
-    var audioInput = context.createMediaStreamSource(audioStream);
-    var bufferSize = 2048;
-    if (counter3 == 0) {
-    console.log(context.sampleRate);
-    var recorder = context.createScriptProcessor(bufferSize, 1, 1);
-    recorder.onaudioprocess = recorderProcess3;
-    audioInput.connect(recorder);
-    recorder.connect(context.destination);
-  }
-    $(document).unbind("keyup")
-      .keyup(function() {
-        if (event.code == 'KeyD') {
-          console.log(Stream3);
-          Stream3.end();
-          Stream3 = null;
-          console.log("KeyD released.");
-          counter3 += 1;
-        }
-      });
   }
 
   function recorderProcess(e) {
     var left = e.inputBuffer.getChannelData(0);
-    if (Stream !== null) {
-      Stream.write(convertFloat32toInt16(left));
+    if (streams.length !== 0) {
+      streams[0].write(convertFloat32toInt16(left));
     }
-  }
-
-  function recorderProcess2(e) {
-    var left = e.inputBuffer.getChannelData(0);
-    if (Stream2 !== null) {
-    Stream2.write(convertFloat32toInt16(left));
+    if (streams2.length !== 0) {
+      streams2[0].write(convertFloat32toInt16(left));
     }
-  }
-
-  function recorderProcess3(e) {
-    var left = e.inputBuffer.getChannelData(0);
-    if (Stream3 !== null) {
-    Stream3.write(convertFloat32toInt16(left));
+    if (streams3.length !== 0) {
+    streams3[0].write(convertFloat32toInt16(left));
     }
   }
 
