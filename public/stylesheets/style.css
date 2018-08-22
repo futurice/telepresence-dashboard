@@ -13,10 +13,34 @@ a {
   height: 100%;
   width: auto;
 }
+
 .btn-lg {
   height: 150px;
   width: 150px;
   margin-top: 5px;
+}
+
+.btn-sm {
+  height: 70px;
+  width: 70px;
+  margin-right: 60px;
+}
+
+.vision-button-wrapper {
+  z-index: 3;
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  display: inline;
+}
+
+.vision-button-action {
+  padding: 0;
+}
+
+.vision-button-action img {
+  height: 100%;
+  width: auto;
 }
 
 #cam-lower-layer {
@@ -52,10 +76,14 @@ a {
   z-index: 3;
   display: none;
 }
-/*#tp-success {
-  display:none;
-}
 
-#tp-fail {
-  display:none;
+/*
+#gesture-alert {
+  position: absolute;
+  bottom: -20px;
+  left: -15px;
+  z-index: 3;
+  display: inline;
+  width: 550px;
+  height: 100px;
 }*/

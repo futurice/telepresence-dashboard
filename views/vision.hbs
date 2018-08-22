@@ -5,12 +5,28 @@
         SAADA TOIMIMAAN FRONTIN KAUTTA-->
 </div>
 <div id="cam-top-layer"></div>
-<div id="speech-ctl-layer">
+<!--<div id="speech-ctl-layer">
   <input type="button" value="fi-FI" id="tele-finnish">
   <input type="button" value="en-US" id="tele-english">
-</div>
+</div>-->
 <div class="alert alert-danger fade show" role="alert" id="stream-alert">
   Streaming
+</div>
+<div class="vision-button-wrapper">
+  {{#each buttons}}
+      <div class="row">
+        <!--<div class="alert alert-danger fade show" role="alert" id="gesture-alert">
+        Performing a gesture. Please wait a moment.
+      </div>-->
+        <div class="column-5">
+          <button type="button" class="vision-button-action btn btn-primary btn-sm" 
+          data-button-info= "{{@key}}">
+          <img src="{{thumbnail}}" id="vision-image-button" class="vision-button-action-image"></img>
+        </button>
+        </div>
+  {{/each}}
+
+<!--End of second inner container-->
 </div>
 
 <script src="/javascripts/audio-npm.js"></script>

@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var net = require('net');
 var gestures = require('../data/gestures.json');
+var visionGestures = require('../data/visioncodes.json');
 var fs = require('fs');
 var binaryServer = require('binaryjs').BinaryServer;
 var server = binaryServer({port:9001});
@@ -20,6 +21,22 @@ router.post('/run/preset/:scenario/:buttonClicked', function (request, response)
   let buttonName = request.params.buttonClicked;
   if (gestures.scenarios[scenario].hasOwnProperty(buttonName)){
     fs.readFile(gestures.scenarios[scenario][buttonName].filename, 'utf8', function(error, data){
+      if (error) throw error;
+      console.log(data);
+      sendOverSocket(data);
+      response.json({success:true});
+      showSuccess();
+    });
+  } else {
+    response.json({success:false});
+    showError();
+  }
+});
+
+router.post('/run/preset/:visionButton', function (request, response){
+  let buttonName = request.params.visionButton;
+  if (visionGestures.hasOwnProperty(buttonName)){
+    fs.readFile(visionGestures.filename, 'utf8', function(error, data){
       if (error) throw error;
       console.log(data);
       sendOverSocket(data);
