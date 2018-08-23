@@ -12,6 +12,13 @@
 <div class="alert alert-danger fade show" role="alert" id="stream-alert">
   Streaming
 </div>
+<div class="alert alert-success" id="vision-gesture-success" role="alert">
+    A gesture has been sent. Please wait a moment.
+</div>
+<div class="alert alert-danger" id="vision-gesture-fail"
+role="alert">
+    A gesture has failed.
+</div>
 <div class="vision-button-wrapper">
   {{#each buttons}}
       <div class="row">
@@ -19,7 +26,7 @@
         Performing a gesture. Please wait a moment.
       </div>-->
         <div class="column-5">
-          <button type="button" class="vision-button-action btn btn-primary btn-sm" 
+          <button type="button" class="vision-button-action btn btn-primary btn-sm"
           data-button-info= "{{@key}}">
           <img src="{{thumbnail}}" id="vision-image-button" class="vision-button-action-image"></img>
         </button>

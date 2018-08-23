@@ -4,6 +4,11 @@
     let screenHeight = $(document).height();
     let perX = Math.round((event.pageX / screenWidth) * 100);
     let perY = Math.round((event.pageY / screenHeight) * 100);
+    $('#cam-top-layer').css("pointer-events", "none");
+    var enable = function(){
+      $('#cam-top-layer').css("pointer-events", "auto");
+    };
+    setTimeout(enable, 1000);
     console.log(" X: " + perX + " Y: " + perY);
     $.post('api/run/vision/',{perX:perX, perY:perY}, function(data){
        console.log(data);
@@ -20,10 +25,17 @@
       $('.vision-button-action').removeAttr("disabled");
     };
     setTimeout(enable, 5000);
+    $('#vision-gesture-success').css("display", "inline");
+    var disableSuccess = function(){
+      $('#vision-gesture-success').css("display", "none");
+    };
+    setTimeout(disableSuccess, 3000);
 		$.post('/api/run/preset/'+visionButton,
 		function (data) {
 			console.log(data);
-		}).fail(function(error){ console.log(error); });
+		}).fail(function(error){
+      console.log(error);
+    });
 	});
 
   $(document).keydown(function(){

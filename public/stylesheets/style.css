@@ -60,6 +60,7 @@ a {
   top: 0;
   left: 0;
   z-index: 2;
+  pointer-events: auto;
 }
 
 #speech-ctl-layer {
@@ -77,6 +78,31 @@ a {
   display: none;
 }
 
+#tp-success {
+  top: -50px;
+  right: 0;
+  display: none;
+}
+
+#tp-fail {
+  top: -50px;
+  right: 0;
+  display: none;
+}
+
+#vision-gesture-success {
+  top: 675px;
+  left: -25px;
+  display: none;
+  z-index: 3;
+}
+
+#vision-gesture-fail {
+  bottom: 275px;
+  left: -25px;
+  display: none;
+  z-index: 3;
+}
 /*
 #gesture-alert {
   position: absolute;

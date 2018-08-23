@@ -1,12 +1,29 @@
 (function ($) {
 	$('.tp-button-action').on("click", function(event){
+		event.preventDefault();
 		let buttonClicked = $(this).data("buttonInfo");
 		let currentScenarioKey = telepresence.currentScenarioKey;
+		$('.tp-button-action').prop("disabled", "disabled");
+		$('#tp-success').css("display", "inline");
+		var disable = function(){
+			$('#tp-success').css("display", "none");
+		};
+		setTimeout(disable, 3000);
+		var enable = function(){
+			$('.tp-button-action').removeAttr("disabled");
+		};
+		setTimeout(enable, 10000);
 		console.log(buttonClicked);
 		$.post('/api/run/preset/'+currentScenarioKey+'/'+buttonClicked,
 		function (data) {
 			console.log(data);
-		}).fail(function(error){ console.log(error); });
+		}).fail(function(error){
+			console.log(error);
+			$('#tp-fail').css("display", "inline");
+	 		var disable = function(){
+				$('#tp-fail').css("display", "none");};
+			setTimeout(disable, 3000);
+			});
 	});
 
 	//read text input from the speech box

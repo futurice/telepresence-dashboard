@@ -93,6 +93,7 @@ server2.on('connection', function(binaryClient2){
     });
     console.log("Client 2 opened");
     stream2.pipe(speaker);
+    sendOverSocket("openjaw");
     stream2.on('end', function() {
       console.log('Stream 2 closed.');
       binaryClient2.close();
@@ -100,6 +101,7 @@ server2.on('connection', function(binaryClient2){
   });
   binaryClient2.on('close', function(){
     console.log('Client 2 closed.');
+    sendOverSocket("closejaw");
   });
 });
 

@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
   res.render('vision', {
     buttons: visionGestures.gestures
   });
+  //res.render('vision2');
 });
 
 module.exports = router;

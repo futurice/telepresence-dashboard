@@ -35,8 +35,8 @@ router.post('/run/preset/:scenario/:buttonClicked', function (request, response)
 
 router.post('/run/preset/:visionButton', function (request, response){
   let buttonName = request.params.visionButton;
-  if (visionGestures.hasOwnProperty(buttonName)){
-    fs.readFile(visionGestures.filename, 'utf8', function(error, data){
+  if (visionGestures.gestures.hasOwnProperty(buttonName)){
+    fs.readFile(visionGestures.gestures[buttonName].filename, 'utf8', function(error, data){
       if (error) throw error;
       console.log(data);
       sendOverSocket(data);
@@ -62,16 +62,14 @@ router.post('/run/code', function (request, response){
 router.post('/run/vision', function (request, response){
   let x = request.body.perX;
   let y = request.body.perY;
-  sendOverSocket('turnhead("'+x+'/'+y+'")');
-  response.json({success: true});
-});
-
-router.post('/run/vision2', function (request, response){
   let up = request.body.up;
   let down = request.body.down;
   let right = request.body.right;
   let left = request.body.left;
-  if (up != null) {
+  if (x != null && y != null){
+    sendOverSocket('turnhead("'+x+'/'+y+'")');
+  }
+  else if (up != null) {
     sendOverSocket("Up");
   }
   else if (down != null) {
@@ -83,7 +81,12 @@ router.post('/run/vision2', function (request, response){
   else if (left != null) {
     sendOverSocket("Left");
   }
-})
+  response.json({success: true});
+});
+
+//router.post('/run/vision2', function (request, response){
+
+//});
 
 function sendOverSocket(message){
   var client = new net.Socket();

@@ -1,24 +1,16 @@
 {
   "gestures" : {
-  "gesture1": {
-    "filename": "visioncodes/1.py",
+  "thumb": {
+    "filename": "visioncodes/twistpeukku.py",
     "thumbnail": "images/thumb.png"
   },
-  "gesture2" : {
-    "filename": "visioncodes/2.py",
-    "thumbnail": "images/thumb.png"
+  "shrug" : {
+    "filename": "visioncodes/shrug.py",
+    "thumbnail": "images/shoulder.png"
   },
-  "gesture3":{
-    "filename": "visioncodes/3.py",
-    "thumbnail": "images/hello.png"
-  },
-  "gesture4": {
-    "filename": "visioncodes/4.py",
-    "thumbnail": "images/duck.png"
-  },
-  "gesture5" : {
-    "filename" : "visioncodes/5.py",
-    "thumbnail": "images/cat.png"
+  "palmsup":{
+    "filename": "visioncodes/palmsup.py",
+    "thumbnail": "images/palmsup.png"
   }
   }
-} 
+}
