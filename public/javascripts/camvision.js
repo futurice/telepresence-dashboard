@@ -38,35 +38,41 @@
     });
 	});
 
-  $(document).keydown(function(){
-    if (event.code == "ArrowUp") {
-      $('.vision-button-action').prop("disabled", false);
-      console.log("Up");
-      var up = "Up";
-      $.post('api/run/vision/',{up:up}, function(data){
-        console.log(data);
-      }, "json")
-    }
-    else if (event.code == "ArrowDown") {
-      console.log("Down");
-      var down = "Down";
-      $.post('api/run/vision/',{down:down}, function(data){
-        console.log(data);
-    }, "json")
-    }
-    else if (event.code == "ArrowRight"){
-      console.log("Right");
-      var right = "Right";
-      $.post('api/run/vision/',{right:right}, function(data){
-        console.log(data);
-      }, "json")
-    }
-    else if (event.code == "ArrowLeft"){
-      console.log("Left");
-      var left = "Left";
-      $.post('api/run/vision/',{left:left}, function(data){
-        console.log(data);
-      }, "json")
-    }
-  });
+  var disabled = false;
+  
+    $(document).keydown(function(){
+      if (disabled){
+        return;
+      }
+        if (event.code == "ArrowUp") {
+          console.log("Up");
+          var up = "Up";
+          $.post('api/run/vision/',{up:up}, function(data){
+            console.log(data);
+          }, "json")
+        }
+        else if (event.code == "ArrowDown") {
+          console.log("Down");
+          var down = "Down";
+          $.post('api/run/vision/',{down:down}, function(data){
+              console.log(data);
+          }, "json")
+        }
+        else if (event.code == "ArrowRight"){
+          console.log("Right");
+          var right = "Right";
+          $.post('api/run/vision/',{right:right}, function(data){
+            console.log(data);
+          }, "json")
+        }
+        else if (event.code == "ArrowLeft"){
+          console.log("Left");
+          var left = "Left";
+          $.post('api/run/vision/',{left:left}, function(data){
+            console.log(data);
+          }, "json")
+        }
+      disabled = true;
+      setTimeout(function(){disabled = false;}, 3000);
+    });
 })(jQuery);
