@@ -1,11 +1,7 @@
-<div>
-  <!--<img src="http://192.168.43.226:8999/++video?cameraNum=0" id="cam-lower-layer">-->
-  <img src="http://10.6.2.239:8999/++video?cameraNum=0" id="cam-lower-layer">
-  <!--<audio src="http://10.6.2.239:8999/++audio?cameraNum=0">TODO: AUDIO OLISI HYVA
-        SAADA TOIMIMAAN FRONTIN KAUTTA-->
-</div>
 <div id="cam-top-layer"></div>
-<!--<div id="speech-ctl-layer">
+  <img id="video-layer">
+  <!--<video autoplay></video>
+<div id="speech-ctl-layer">
   <input type="button" value="fi-FI" id="tele-finnish">
   <input type="button" value="en-US" id="tele-english">
 </div>-->
@@ -36,6 +32,8 @@ role="alert">
 <!--End of second inner container-->
 </div>
 
+<script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="/javascripts/videostream.js"></script>
 <script src="/javascripts/audio-npm.js"></script>
 <script src="/javascripts/binary.js"></script>
 <script src="/javascripts/camvision.js"></script>

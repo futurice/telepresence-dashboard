@@ -1,4 +1,5 @@
 (function ($){
+
   $('#cam-top-layer').click(function(event){
     let screenWidth = $(document).width();
     let screenHeight = $(document).height();
@@ -39,7 +40,7 @@
 	});
 
   var disabled = false;
-  
+
     $(document).keydown(function(){
       if (disabled){
         return;

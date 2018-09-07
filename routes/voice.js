@@ -8,6 +8,11 @@ var router = express.Router();
 languageCode = 'fi-FI';
 var Speaker = require('speaker');
 
+//Don't crash even if MyRobotLab is down
+process.on('uncaughtException', function (err) {
+  console.log(err);
+});
+
 module.exports = function createServer() {
 
   var server = binaryServer({port:9002});
@@ -93,7 +98,7 @@ server2.on('connection', function(binaryClient2){
     });
     console.log("Client 2 opened");
     stream2.pipe(speaker);
-    sendOverSocket("openjaw");
+    sendOverSocket("openjaw()");
     stream2.on('end', function() {
       console.log('Stream 2 closed.');
       binaryClient2.close();
@@ -101,7 +106,7 @@ server2.on('connection', function(binaryClient2){
   });
   binaryClient2.on('close', function(){
     console.log('Client 2 closed.');
-    sendOverSocket("closejaw");
+    sendOverSocket("closejaw()");
   });
 });
 
@@ -136,8 +141,6 @@ function sendOverSocket(message){
   console.log("Sending to robot: " + message);
   client.write(message);
   client.end();
-  process.on('uncaughtException', function (err) {
-    console.log(err);
-    });
-  }
 }
+
+} // module.exports
