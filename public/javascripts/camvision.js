@@ -39,12 +39,12 @@
     });
 	});
 
-  var disabled = false;
+  //var disabled = false;
 
     $(document).keydown(function(){
-      if (disabled){
-        return;
-      }
+    //  if (disabled){
+      //  return;
+      //}
         if (event.code == "ArrowUp") {
           console.log("Up");
           var up = "Up";
@@ -73,7 +73,7 @@
             console.log(data);
           }, "json")
         }
-      disabled = true;
-      setTimeout(function(){disabled = false;}, 3000);
-    });
+      //disabled = true;
+      //setTimeout(function(){disabled = false;}, 3000);
+    //});
 })(jQuery);
