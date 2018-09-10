@@ -45,11 +45,11 @@ router.post('/run/preset/:visionButton', function (request, response){
       console.log(data);
       sendOverSocket(data);
       response.json({success:true});
-      showSuccess();
+      //showSuccess();
     });
   } else {
     response.json({success:false});
-    showError();
+    //showError();
   }
 });
 

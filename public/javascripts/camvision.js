@@ -1,5 +1,4 @@
 (function ($){
-
   $('#cam-top-layer').click(function(event){
     let screenWidth = $(document).width();
     let screenHeight = $(document).height();
