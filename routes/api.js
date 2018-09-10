@@ -15,6 +15,10 @@ const encoding = 'LINEAR16';
 const sampleRateHertz = 16000;
 const languageCode = 'en-US';
 
+process.on('uncaughtException', function (err) {
+  console.log(err);
+});
+
 /* GET home page. */
 router.post('/run/preset/:scenario/:buttonClicked', function (request, response){
   let scenario = request.params.scenario;
@@ -70,23 +74,20 @@ router.post('/run/vision', function (request, response){
     sendOverSocket('turnhead("'+x+'/'+y+'")');
   }
   else if (up != null) {
-    sendOverSocket("Up");
+    sendOverSocket('turnheaddirection("up")');
   }
   else if (down != null) {
-    sendOverSocket("Down");
+    sendOverSocket('turnheaddirection("down")');
   }
   else if (right != null) {
-    sendOverSocket("Right");
+    sendOverSocket('turnheaddirection("right")');
   }
   else if (left != null) {
-    sendOverSocket("Left");
+    sendOverSocket('turnheaddirection("left")');
   }
   response.json({success: true});
 });
 
-//router.post('/run/vision2', function (request, response){
-
-//});
 
 function sendOverSocket(message){
   var client = new net.Socket();
@@ -99,9 +100,6 @@ function sendOverSocket(message){
   console.log("Sending to robot: " + message);
   client.write(message);
   client.end();
-  process.on('uncaughtException', function (err) {
-    console.log(err);
-  });
 }
 
 module.exports = router;
