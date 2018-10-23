@@ -72,7 +72,28 @@
             console.log(data);
           }, "json")
         }
+        else if (event.code == "KeyY"){
+          console.log("Y pressed");
+          var forward = 120;
+          $.post('api/run/vision/',{forward:forward}, function(data){
+            console.log(data);
+          }, "json")
+        }
+        else if (event.code = "KeyG"){
+          console.log("G pressed");
+          var turnleft = -120;
+          $.post('api/run/vision/',{turnleft:turnleft}, function(data){
+            console.log(data);
+          }, "json")
+        }
+        else if (event.code = "KeyJ"){
+          console.log("J pressed");
+          var turnright = 120;
+          $.post('api/run/vision/',{turnright:turnright}, function(data){
+            console.log(data);
+          }, "json")
+        }
       //disabled = true;
       //setTimeout(function(){disabled = false;}, 3000);
-    //});
+    });
 })(jQuery);

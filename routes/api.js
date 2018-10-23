@@ -70,6 +70,9 @@ router.post('/run/vision', function (request, response){
   let down = request.body.down;
   let right = request.body.right;
   let left = request.body.left;
+  let forward = request.body.forward;
+  let turnleft = request.body.turnleft;
+  let turnright = request.body.turnright;
   if (x != null && y != null){
     sendOverSocket('turnhead("'+x+'/'+y+'")');
   }
@@ -84,6 +87,15 @@ router.post('/run/vision', function (request, response){
   }
   else if (left != null) {
     sendOverSocket('turnheaddirection("left")');
+  }
+  else if (forward != null) {
+    sendOverSocket('"'+forward+',0"');
+  }
+  else if (turnleft != null) {
+    sendOverSocket('"0,'+turnleft+'"');
+  }
+  else if (turnright != null) {
+    sendOverSocket('"0,'+turnright+'"');
   }
   response.json({success: true});
 });
