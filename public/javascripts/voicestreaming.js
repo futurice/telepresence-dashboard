@@ -30,7 +30,7 @@
       audio: true,
       video: false
     };
-    navigator.getUserMedia(session, initializeRecorder, onError);
+    navigator.getUserMedia(session, initializeRecorder2, onError);
   });
 
   $(document).keydown(function(){
@@ -59,8 +59,13 @@
 
   $(document).keydown(function(){
     if (streams2.length == 0 && event.code == 'KeyS') {
+      var session = {
+        audio: true,
+        video: false
+      };
       $('#stream-alert').css("display", "inline");
       binaryClient2 = new BinaryClient('ws://localhost:9003');
+      //navigator.getUserMedia(session, initializeRecorder2, onError);
       binaryClient2.on('open', function() {
         streams2.push(binaryClient2.createStream());
       });
@@ -122,17 +127,13 @@
     var biquadFilter = context.createBiquadFilter();
     var bufferSize = 2048;
     pitchShift.transpose = 1;
-    pitchShift.wet.value = 0.5;
-    pitchShift.dry.value = 0;
-    biquadFilter.frequency.value = 200;
-    biquadFilter.type = "highshelf";
-    biquadFilter.gain.value = 20;
+    pitchShift.wet.value = 1;
+    pitchShift.dry.value = 1;
     console.log(context.sampleRate);
     var recorder = context.createScriptProcessor(bufferSize, 1, 1);
     recorder.onaudioprocess = recorderProcess;
     audioInput.connect(pitchShift);
-    pitchShift.connect(biquadFilter);
-    biquadFilter.connect(recorder);
+    pitchShift.connect(recorder);
     recorder.connect(context.destination);
   }
 

@@ -73,6 +73,7 @@ router.post('/run/vision', function (request, response){
   let forward = request.body.forward;
   let turnleft = request.body.turnleft;
   let turnright = request.body.turnright;
+  let stop = request.body.stop;
   if (x != null && y != null){
     sendOverSocket('turnhead("'+x+'/'+y+'")');
   }
@@ -89,13 +90,18 @@ router.post('/run/vision', function (request, response){
     sendOverSocket('turnheaddirection("left")');
   }
   else if (forward != null) {
-    sendOverSocket('"'+forward+',0"');
+    sendToWheelie('120,0');
   }
   else if (turnleft != null) {
-    sendOverSocket('"0,'+turnleft+'"');
+    sendToWheelie('0,-120');
+    console.log("coordinates sent");
   }
   else if (turnright != null) {
-    sendOverSocket('"0,'+turnright+'"');
+    sendToWheelie('0,120');
+    //sendToWheelie('"0,'+turnright+'"');
+  }
+  else if (stop != null) {
+    sendToWheelie('0,0');
   }
   response.json({success: true});
 });
@@ -112,6 +118,18 @@ function sendOverSocket(message){
   console.log("Sending to robot: " + message);
   client.write(message);
   client.end();
+}
+
+function sendToWheelie(message){
+  var client2 = new net.Socket();
+  client2.connect(21000, function(){
+    console.log('Connected');
+  });
+  client2.on('data', function (reply) {
+    console.log("coordinates sent");
+  });
+  client2.write(message);
+  client2.end();
 }
 
 module.exports = router;
